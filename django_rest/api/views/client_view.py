@@ -17,7 +17,7 @@ class ClientList(APIView):
         clients = client_services.list_clients()
 
         result = pagination.paginate_queryset(clients, request)
-        serializer = client_serializer.ClientSerializer(result, many=True)
+        serializer = client_serializer.ClientSerializer(result, context={'request': request}, many=True)
 
         return pagination.get_paginated_response(serializer.data)
         # return Response(serializer.data, status=status.HTTP_200_OK)
